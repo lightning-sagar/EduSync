@@ -1,6 +1,4 @@
-Here's a sample README file for your Smart Classroom Management System project. You can customize it further based on your project's specifics.
 
-```markdown
 # Smart Classroom Management System
 
 ## Overview
