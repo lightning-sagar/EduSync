@@ -64,10 +64,12 @@ const postGroupMessage = async (req, res) => {
     }
 };
 
-const apiKey = 'j7gdbzr5dj23';
-const api_secret = 'qnunk49ah2uatesrugy56vbygbtg4h8mnvjk68n5xg2z32ypqepm98mdfgvxgt7s';
-const appId = '1335756'; 
+const apiKey = process.env.STREAM_API;
+const api_secret = process.env.STREAM_SECRET;
+const appId =  process.env.STREAM_APP_ID; 
+
 const createToken = async (req, res) => {
+    console.log("",apiKey,api_secret,appId);
     try {
         const client = Stream.connect(apiKey, api_secret, appId);
         const userId = req.user._id;

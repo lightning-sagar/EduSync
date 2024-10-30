@@ -34,4 +34,12 @@ app.use('/api/c',ChatRoute)
 
 
 const port = process.env.PORT || 5000;
+
+if(process.env.NODE_ENV === 'production'){
+    app.use(express.static(path.join(_dirname, '/Frontend/dist')));
+
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(_dirname, 'Frontend', 'dist', 'index.html'));
+    })
+}
 server.listen(port, () => console.log(`http://localhost:${port}`));

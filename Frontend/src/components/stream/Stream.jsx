@@ -19,9 +19,11 @@ import {
 import './stram.css';
 import '@stream-io/video-react-sdk/dist/css/styles.css';
 
-const apiKey = 'j7gdbzr5dj23';
 
-function Stream() {
+const apiKey =import.meta.env.VITE_STREAM_API;
+console.log(apiKey)
+function Stream() { 
+
   const { callId } = useParams(); 
   const user = useRecoilValue(userAtom);
   const [videoClient, setVideoClient] = useState(null);
