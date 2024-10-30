@@ -5,11 +5,11 @@
   padding: 0;
   box-sizing: border-box;
   font-family: 'Outfit', sans-serif;
+  scrollbar-width: none;
+
 }
-a {
-  text-decoration: none;
-  color: white;
-}
+ 
 body{
-  background-color: #353535;
+  background: linear-gradient(to bottom right, #ffffff, #6b6bff ) !important;
+  color:black;
 }

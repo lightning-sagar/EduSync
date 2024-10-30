@@ -67,6 +67,7 @@ const loginController = async (req, res) => {
             _id: user._id,
             name: user.fname,
             email: user.email,
+            image: user.image,
             username: user.username
         });
 
@@ -88,5 +89,16 @@ const logoutController = async(req,res) => {
 
     }
 }
+const updateController = async (req, res) => {
+    try {
+        const { username, image,email } = req.body;
 
-export {signupController,loginController,logoutController};
+        if (!username || !image || !email) {
+            
+        }
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({message:`server error ${error}`})
+    }
+}
+export {signupController,updateController,loginController,logoutController};

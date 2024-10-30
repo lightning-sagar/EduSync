@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import User from "../Models/User.js";
 import Subject from "../Models/Subject.js";
 import {v2 as cloudinary} from "cloudinary";
-
+import { v4 as uuidv4 } from 'uuid';
 const Addsubject = async (req, res) => {
     try {
         console.log(req.user._id, "req.user._id",req.body);
@@ -356,4 +356,137 @@ const updateUserD = async (req, res) => {
     }
   };
 
-export {Addsubject,getAllstu,GetSubject,updateUserD,AddNoticeOrAssignment,deleteAssignment,GetNotice,deleteSubject,GetAssignment,deleteNotice,addstudent};
+const createOrOpenWhiteboard = async (req, res) => {
+    try {
+      const { subjectId } = req.params;
+  
+      let subject = await Subject.findById(subjectId);
+      if (!subject) {
+        return res.status(404).json({ message: "Subject not found" });
+      }
+      if(subject.teacher !== req.user.username){
+        return res.status(401).json({ message: "Unauthorized" });
+      }
+
+      if (!subject.whiteboard.url) {
+        const roomId = uuidv4();  
+        const encryptionKey = uuidv4().replace(/-/g, '').slice(0, 22);   
+        const whiteboardUrl = `https://excalidraw.com/#room=${roomId},${encryptionKey}`;
+        
+        subject.whiteboard.url = whiteboardUrl;
+        await subject.save();
+        
+        console.log(subject.whiteboard.url, "created by", req.user.username);
+  
+        return res.status(201).json({ 
+          message: "New whiteboard created", 
+          whiteboardUrl, 
+          roomId, 
+          encryptionKey 
+        });
+      } else {
+        const whiteboardUrl = subject.whiteboard.url;
+        const urlParts = whiteboardUrl.split("#room=")[1].split(",");
+        const roomId = urlParts[0];
+        const encryptionKey = urlParts[1];
+  
+        return res.status(200).json({ 
+          whiteboardUrl, 
+          roomId, 
+          encryptionKey 
+        });
+      }
+    } catch (error) {
+      console.error("Error creating or opening whiteboard:", error);
+      return res.status(500).json({ message: "Server error", error: error.message });
+    }
+};
+
+const uploadAssignment = async (req, res) => {
+    try {
+        const { subjectId, assignmentId } = req.params;  
+        const { assignmentLink } = req.body;
+        
+        let subject = await Subject.findById(subjectId);
+        if (!subject) {
+            console.log("subject not found");
+            return res.status(404).json({ message: "Subject not found" });
+        }
+
+        if (subject.teacher === req.user.username) {
+            console.log("Unauthorized");
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        const assignment = subject.assignment.id(assignmentId);
+        if (!assignment) {
+            return res.status(404).json({ message: "Assignment not found" });
+        }
+
+        const currentDate = new Date();
+        if (currentDate > assignment.dueDate) {
+            return res.status(400).json({ message: "Due date has already passed" });
+        }
+
+        if (assignment.submittedBy && assignment.submittedBy.userId === (req.user._id)) {
+            return res.status(400).json({ message: "You have already submitted the assignment" });
+        }
+
+        const newAssSubmitted = {
+            userId: req.user._id,
+            username: req.user.username,
+            ansLink: assignmentLink
+        };
+        assignment.submittedBy.push(newAssSubmitted);
+        console.log(assignment);
+        await subject.save();
+        return res.status(200).json({ message: "Assignment uploaded successfully" });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Server error" });
+    }
+};
+
+
+const getAssignment = async (req, res) => {
+    try {
+        const { subjectId } = req.params;
+        const subject = await Subject.findById(subjectId);
+
+        if (!subject) {
+            return res.status(404).json({ message: "Subject not found" });
+        }
+
+        if (subject.teacher !== req.user.username) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        const assignment = subject.assignment.id(req.params.assignmentId);
+        if(assignment.submittedBy){
+            const resAss = assignment.submittedBy;
+            return res.status(200).json({resAss});
+        }
+        else{
+            return res.status(404).json({ message: "Assignment not found" });
+        }
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Server error" });
+    }
+}
+
+const getTeacher = async (req, res) => {
+    try {
+        const { subjectId } = req.params;
+        const subject = await Subject.findById(subjectId);
+        if (!subject) {
+            return res.status(404).json({ message: "Subject not found" });
+        }
+        
+        return res.status(200).json({ subject });
+    } catch (error) {
+        console.error(error);
+        return res.status(500).json({ message: "Server error" });
+    }
+}
+export {Addsubject,createOrOpenWhiteboard,getTeacher,getAssignment,uploadAssignment,getAllstu,GetSubject,updateUserD,AddNoticeOrAssignment,deleteAssignment,GetNotice,deleteSubject,GetAssignment,deleteNotice,addstudent};

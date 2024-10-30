@@ -115,7 +115,7 @@ const Info = () => {
   }, [subjectId]);
 
   const handleDelete = () => {
-    // Delete user logic here
+    //TODO: Implement delete functionality here and make the controller
   };
 
   return (
@@ -126,28 +126,26 @@ const Info = () => {
           <Navbar2 subtecher={subtecher[0]?.username} userId={user?.username}/>
           {/* Display teacher details */}
           <div className="card-container">
-                <div className="card">
-                  <div className="info-wrapper">
-                    <div className="info-card-image">
-                      <img className="info-card-image" src={subtecher[0]?.image || 'https://via.placeholder.com/150'} alt="profile" />
+          <div className="card">
+              <div className="info-wrapper">
+                <div className="info-card-image">
+                  {subtecher[0]?.image ? (
+                    <img
+                      className="info-card-image"
+                      src={subtecher[0].image}
+                      alt="profile"
+                    />
+                  ) : (
+                    <div className="image-placeholder">
+                      {subtecher[0]?.username?.charAt(0).toUpperCase()}
                     </div>
-                    <div className="info-card-title">
-                      <h3 style={{ color: 'black' }}>{subtecher[0]?.username}👑</h3>
-                    </div>
-                  </div>
-                  <div className="infoitems">
-                    {user?._id === subtecher[0]?._id && (
-                      <div className="infobtn-group">
-                        <button className="infobtn-edit" onClick={() => handleEditClick(subtecher[0])}>
-                          <FaEdit />
-                        </button>
-                        <button className="infobtn-delete" onClick={handleDelete}>
-                          <FaTrashAlt />
-                        </button>
-                      </div>
-                    )}
-                  </div>
+                  )}
                 </div>
+                <div className="info-card-title">
+                  <h3 style={{ color: 'black' }}>{subtecher[0]?.username}👑</h3>
+                </div>
+              </div>
+            </div>
           </div>
 
           {subjectstudent && subjectstudent.length > 0 ? (
@@ -156,7 +154,17 @@ const Info = () => {
                 <div className="card">
                   <div className="info-wrapper">
                     <div className="info-card-image">
-                      <img className="info-card-image" src={stu.image || 'https://via.placeholder.com/150'} alt="profile" />
+                      {stu.image ? (
+                        <img
+                          className="info-card-image"
+                          src={stu.image}
+                          alt="profile"
+                        />
+                      ) : (
+                        <div className="image-placeholder">
+                          {stu.username?.charAt(0).toUpperCase()}
+                        </div>  
+                      )}
                     </div>
                     <div className="info-card-title">
                       <h3 style={{ color: 'black' }}>{stu.username}</h3>
@@ -225,4 +233,3 @@ const Info = () => {
 };
 
 export default Info;
-

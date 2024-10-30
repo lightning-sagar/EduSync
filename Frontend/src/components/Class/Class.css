@@ -3,6 +3,158 @@
   padding: 0;
   box-sizing: border-box;
 }
+.assignment-card {
+  background-color: #fff;
+  padding: 15px;
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;  /* Change to column to stack elements */
+  gap: 15px;
+  position: relative;
+  z-index: 5;
+}
+
+.assignment-text {
+  display: flex;
+  gap: 10px;
+}
+
+.assignment-text h2 {
+  margin: 0;
+  color: black;
+  font-size: 1.5em;
+  line-height: 1.2;
+}
+
+.assignment-description {
+  margin: 0;
+  font-size: 16px;
+  color: black;
+}
+
+.link-upload-field {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.link-upload-field input {
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #f5f5f5;
+  color: #333;
+  width: 100%; /* Full width inside the card */
+  max-width: 400px;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.link-upload-field button {
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.3s ease;
+}
+
+.link-upload-field button:hover {
+  background-color: #45a049;
+}
+.class-container.blur-background main {
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content.submissions-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 500px;
+  width: 100%;
+}
+
+.submissions-modal h3 {
+  margin-top: 0;
+}
+
+.submissions-modal ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.submissions-modal li {
+  margin-bottom: 10px;
+}
+
+.dropdown-menu {
+  right: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.dropdown-menu.show {
+  display: block; 
+}
+.dropdown-menu button {
+  margin-bottom: 10px;
+  z-index: 999999;
+  padding: 8px 12px;
+  background: none;
+  border: none;
+  background-color: greenyellow;
+  cursor: pointer;
+  font-size: 14px;
+  color: #333;
+  width: 100%;
+  text-align: left;
+}
+
+.dropdown-menu button:hover {
+  background-color: #f2f2f2;
+}
+
+/* Styling the dot button container */
+.dot-button-container {
+  position: relative;
+  display: inline-block;
+}
+
+/* Improve the layout of the assignment card */
+.assignment-card {
+  position: relative;
+  border: 1px solid #ddd;
+  padding: 20px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  background-color: #f9f9f9;
+  transition: box-shadow 0.3s ease;
+}
+
+.assignment-card:hover {
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
 
 .share-popup {
   position: fixed;
@@ -13,13 +165,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: rgba(0, 0, 0, 0.6); 
+  /* background: rgba(0, 0, 0, 0.6);  */
+  /* filter: blur(2px); */
+  background-color: rgba(0, 0, 0, 0.5);
   z-index: 9999; 
 }
 
 
 .share-popup-content {
-  background-color: #2e2e2e;
+  /* background-color: #3498db; */
+  background: linear-gradient(to bottom right, #ffffff, #6b6bff ) !important;
   color: #f5f5f5; 
   border-radius: 8px;
   padding: 20px;
@@ -35,8 +190,8 @@
   margin: 10px 0;
   border: 1px solid #333; 
   border-radius: 4px;
-  background-color: #1e1e1e;
-  color: #f5f5f5; 
+  background-color: #ffffff;
+  color: #0c0c0c; 
   font-size: 16px;
 }
 
@@ -74,17 +229,18 @@
 .class-container {
   display: flex;
   height: 90vh;
-
-  background-color: #212121;
-  color: white;
+  background: linear-gradient(to bottom right, #ffffff , #6b6bff ) !important;
+  
+  color: black; /* Changed to black for better contrast */
   overflow: hidden;
 }
 
+
 .sidebar {
-  height: 100vh;
   flex: 1;
   width: 20%;
-  background-color: #333;
+  color: black!important;
+  background-color: #f0f8ff;
   padding: 20px;
   max-width: 300px;
   display: flex;
@@ -99,28 +255,25 @@
   font-size: 22px;
 }
 
-.classes-section ul,
-.ebooks-section ul {
+.classes-section ul{
   list-style: none;
   padding: 0;
 }
 
-.classes-section ul li,
-.ebooks-section ul li {
+.classes-section ul li{
   border: none;
   margin: 20px 0;
   padding: 15px;
   font-size: 18px;
-  background-color: #444;
-  color: white;
+  background-color: #6b6bff63;
+  color: rgb(0, 0, 0);
   border-radius: 8px;
   cursor: pointer;
 }
 
-.classes-section ul li:hover,
-.ebooks-section ul li:hover {
+.classes-section ul li:hover{
   border: 2px solid blue;
-  background-color: #555;
+  background-color: #6b6bff;
 }
 
 .ebook-details {
@@ -145,7 +298,9 @@
 .ebook-status {
   font-weight: bold;
 }
-
+h3{
+  color: #333!important;
+}
 .content {
   height: 90vh;
   flex: 2;
@@ -153,14 +308,17 @@
   width: 80%;
   border-left: 2px solid white;
   padding: 20px;
-  background-color: #212121;
+  /* background-color: #212121; */
   gap: 20px;
   position: relative;
 }
 
+.notice:hover {
+  border: 3px solid rgb(0, 0, 208);
+  box-shadow: 0 12px 10px rgba(0, 0, 0, 0.3);
+}
 
 .notices-section {
-  height: 90vh;
   border-right: 2px solid white;
   padding-right: 20px;
   flex: 2;
@@ -168,11 +326,14 @@
   flex-direction: column;
   gap: 20px;
   width: 55%;
+  overflow-y: auto;
+  scrollbar-width: none;
   position: relative;
   padding-top: 70px;
 }
 
 .assignments-section {
+  overflow-y: auto;
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -181,8 +342,12 @@
   position: relative;
   padding-top: 70px;
 }
-
+.assignment-card:hover{
+  border: 3px solid rgb(0, 0, 208);
+  box-shadow: 0 12px 10px rgba(0, 0, 0, 0.3);
+}
 .assignment-card {
+
   background-color: #fff;
   padding: 15px;
   border: 1px solid #e0e0e0;
@@ -190,14 +355,13 @@
   display: flex;
   align-items: center;
   gap: 15px;
-  position: relative;
+  position: relative!important;
   z-index: 5;
 }
 
 .notice {
   background-color: #fff;
   padding: 15px;
-  justify-content: space-between;
   border: 1px solid #e0e0e0;
   border-radius: 8px;
   display: flex;
@@ -205,11 +369,19 @@
   gap: 15px;
   position: relative;
 }
+.notice-delete-button:hover{
+  background-color: #acb5e9;
+  cursor: pointer;
+}
 .notice-delete-button {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 3px;
   background: transparent;
+  color: #f44336;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   border: none;
   font-size: 1.2em;
   cursor: pointer;
@@ -250,6 +422,7 @@
   top: 10px;
   right: 10px;
   background: transparent;
+  color: red;
   border: none;
   font-size: 1.2em;
   cursor: pointer;
@@ -329,7 +502,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.6);
+  /* background: rgba(0, 0, 0, 0.6); */
   backdrop-filter: blur(30px);
   display: flex;
   justify-content: center;

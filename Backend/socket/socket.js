@@ -51,7 +51,6 @@ io.on("connection", (socket) => {
             console.error('Error posting new message:', error);
         }
     });
-    
 
     socket.on("disconnect", () => {
         console.log(`User disconnected: ${socket.id}`);

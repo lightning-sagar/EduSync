@@ -13,7 +13,7 @@ const getGroupMessages = async (req, res) => {
             path: 'groupChat',
             populate: {
                 path: 'sender participants',
-                select: 'username email',
+                select: 'username email image',
             }
         });
 
@@ -69,18 +69,9 @@ const api_secret = 'qnunk49ah2uatesrugy56vbygbtg4h8mnvjk68n5xg2z32ypqepm98mdfgvx
 const appId = '1335756'; 
 const createToken = async (req, res) => {
     try {
-        console.log(req.user._id);
-
-        // Connect to the Stream API using the correct API keys
         const client = Stream.connect(apiKey, api_secret, appId);
-
-        // Generate a user token for the current user
         const userId = req.user._id;
-        
-        console.log(userId.toString(), "req.user._id");
         const token = client.createUserToken(userId.toString());   
-
-        console.log(token);
         return res.status(200).json({ token });
     } catch (error) {
         console.log(error);

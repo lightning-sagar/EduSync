@@ -1,33 +1,51 @@
-import {
-  CallingState,
-  StreamCall,
-  StreamVideo,
-  StreamVideoClient,
-  useCallStateHooks,
-  ParticipantView,
-  CallControls,
-  StreamTheme,
-  SpeakerLayout,
-} from '@stream-io/video-react-sdk';
 import React, { useEffect, useState } from 'react';
 import { useRecoilValue } from 'recoil';
+import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
 import userAtom from '../../atom/UserAtom';
+import subjectAtom from "../../atom/SubjectAtom";
 import Loader from '../Loader/Loader';
-import { useNavigate, useParams } from 'react-router-dom';
+import { Navigate, useNavigate, useParams } from 'react-router-dom';
+import { 
+  CallingState,
+  StreamCall, 
+  StreamVideo, 
+  StreamVideoClient, 
+  useCallStateHooks, 
+  ParticipantView, 
+  CallControls, 
+  StreamTheme, 
+  SpeakerLayout 
+} from '@stream-io/video-react-sdk';
 import './stram.css';
 import '@stream-io/video-react-sdk/dist/css/styles.css';
 
 const apiKey = 'j7gdbzr5dj23';
 
 function Stream() {
-  const { callId } = useParams(); // Get callId from the URL parameters
+  const { callId } = useParams(); 
   const user = useRecoilValue(userAtom);
   const [videoClient, setVideoClient] = useState(null);
   const [token, setToken] = useState('');
   const [call, setCall] = useState(null);
   const navigate = useNavigate();
+  const {sId} = useParams();
+  const [subject, setSubject ] = useState({});
 
-  // Fetch the token for the user
+  useEffect(()=>{
+    const getTeacher = async () => {
+      try {
+        console.log(sId);
+        const res = await fetch(`/api/s/Teacher/${sId}/Teach`);
+        const data = await res.json();
+        console.log(data);
+        setSubject(data.subject);
+      } catch (error) {
+        console.error('Error fetching token:', error);
+      }
+    }
+    getTeacher();
+  },[sId]);
+
   useEffect(() => {
     const getToken = async () => {
       try {
@@ -44,7 +62,6 @@ function Stream() {
     getToken();
   }, [user]);
 
-  // Initialize Stream Video Client when token is available
   useEffect(() => {
     if (token) {
       const client = new StreamVideoClient({
@@ -58,93 +75,67 @@ function Stream() {
       });
       setVideoClient(client);
 
-      // Cleanup: Disconnect the video client when component unmounts
       return () => {
         if (client) client.disconnectUser();
       };
     }
   }, [token, user]);
 
-  // Join the call and monitor the call state
   useEffect(() => {
     if (videoClient && !call) {
-      const callInstance = videoClient.call('default', callId); // Use callId from params
-      callInstance
-        .join({ create: true })
-        .then(() => setCall(callInstance))
+      const callInstance = videoClient.call('default', callId);
+      
+      callInstance.join({ create: true })
+        .then(() => {
+          setCall(callInstance);
+        })
         .catch((error) => {
           console.error('Error joining call:', error);
         });
 
-      // Cleanup: Leave the call when component unmounts
       return () => {
         if (callInstance) callInstance.leave();
       };
     }
   }, [videoClient, callId, call]);
 
-  // Detect if the call ends or user leaves the call, and navigate to '/'
-  useEffect(() => {
-    if (call) {
-      const handleCallEnded = () => {
-        navigate('/'); // Navigate to home when call ends or user leaves
-      };
-
-      // Check if call ends
-      if (call.state === 'ENDED') {
-        handleCallEnded();
-      }
-
-      // Listen for when the user leaves the call
-      call.on('state_changed', (newState) => {
-        if (newState === 'ENDED') {
-          handleCallEnded();
-        }
-      });
-
-      // Cleanup: remove event listener on unmount
-      return () => {
-        call.off('state_changed', handleCallEnded);
-      };
-    }
-  }, [call, navigate]);
-
-  // Display Loader while video client or call is being initialized
   if (!videoClient || !call) return <Loader />;
 
   return (
     <StreamVideo client={videoClient}>
       <StreamCall className="str-video" call={call}>
-        <MyUILayout call={call} />
+        <MyUILayout subject={subject} call={call} />
       </StreamCall>
     </StreamVideo>
   );
 }
 
-// Custom layout for Stream UI
-export const MyUILayout = ({ call }) => {
-  const { useCallCallingState, useLocalParticipant, useRemoteParticipants } = useCallStateHooks();
-
+export const MyUILayout = ({ call, subject }) => {
+  const { useCallCallingState, useLocalParticipant, useParticipants } = useCallStateHooks();
+  const navigate = useNavigate();
   const callingState = useCallCallingState();
   const localParticipant = useLocalParticipant();
-  const remoteParticipants = useRemoteParticipants();
+  const participants = useParticipants();
 
   if (callingState !== CallingState.JOINED) {
     return <Loader />;
   }
 
+  const handleCallEnded = () => {
+    call.leave();
+    navigate('/');
+  };
+
   return (
     <StreamTheme style={{ position: 'relative' }}>
       <SpeakerLayout participantsBarPosition="bottom" />
-      <CallControls />
+      <CallControls onLeave={handleCallEnded} />
       <MyFloatingLocalParticipant participant={localParticipant} />
-      {console.log(call, 'remoteParticipants')}
-      <ShareLink callId={call.cid.split(':')[1]} />
+      <ShareLink callId={call.cid.split(':')[1]} call={call} subject={subject} participants={participants} user={localParticipant.user} />
     </StreamTheme>
   );
 };
 
-// Display floating local participant view
 export const MyFloatingLocalParticipant = ({ participant }) => {
   return (
     <div
@@ -157,6 +148,7 @@ export const MyFloatingLocalParticipant = ({ participant }) => {
         boxShadow: 'rgba(0, 0, 0, 0.1) 0px 0px 10px 3px',
         borderRadius: '12px',
         zIndex: 1000,
+        color: 'black',
       }}
     >
       {participant ? <ParticipantView muteAudio participant={participant} /> : null}
@@ -164,57 +156,136 @@ export const MyFloatingLocalParticipant = ({ participant }) => {
   );
 };
 
-// Generate a shareable link for the call
-export const ShareLink = ({ callId }) => {
-  const shareLink = `${window.location.origin}/stream/${callId}`;
-
+export const ShareLink = ({ callId, subject, participants }) => {
+  const [isPanelOpen, setIsPanelOpen] = useState(false);
+  const [showAttendance, setShowAttendance] = useState(false);
+  const shareLink = `${window.location.origin}/${subject._id}/stream/${callId}`;
+  const user = useRecoilValue(userAtom);
+  console.log(user,"username")
   const copyLink = () => {
     navigator.clipboard.writeText(shareLink).then(() => {
       alert('Link copied to clipboard!');
     });
   };
 
+  const togglePanel = () => {
+    setIsPanelOpen(!isPanelOpen);
+  };
+
+  const handleTakeAttendance = () => {
+    setShowAttendance(true);
+  };
+
   return (
     <div
       style={{
         position: 'fixed',
-        right: '20px',
+        right: isPanelOpen ? '0' : '-200px',
         bottom: '20px',
+        width: '200px',
+        transition: 'right 0.3s ease',
         zIndex: 1000,
         backgroundColor: '#fff',
         padding: '10px',
         boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)',
-        borderRadius: '8px',
+        borderRadius: '8px 0 0 8px',
       }}
     >
       <button
-        onClick={copyLink}
+        onClick={togglePanel}
         style={{
+          position: 'absolute',
+          left: '-30px',
+          top: '50%',
+          transform: 'translateY(-50%)',
+          width: '30px',
+          height: '30px',
           backgroundColor: '#4CAF50',
-          color: 'white',
-          padding: '10px 20px',
           border: 'none',
-          borderRadius: '4px',
+          borderRadius: '50%',
           cursor: 'pointer',
-        }}
+          color: 'white',
+        }}  
       >
-        Copy Join Link
+        {!isPanelOpen ? <AiOutlineArrowLeft className='arrow' /> : <AiOutlineArrowRight className='arrow'  />}
       </button>
-      <input
-        type="text"
-        readOnly
-        value={shareLink}
-        style={{
-          marginLeft: '10px',
-          border: '1px solid #ddd',
-          padding: '5px',
-          borderRadius: '4px',
-        }}
-      />
+
+      {isPanelOpen && (
+        <div>
+          {subject.teacher === user.username && (
+            <button
+              onClick={handleTakeAttendance}
+              style={{
+                backgroundColor: '#4CAF50',
+                color: 'white',
+                padding: '10px 20px',
+                border: 'none',
+                borderRadius: '4px',
+                cursor: 'pointer',
+                width: '100%',
+                marginBottom: '10px',
+              }}
+            >
+              Take Attendance
+            </button>
+          )}
+          
+          <button
+            onClick={copyLink}
+            style={{
+              backgroundColor: '#4CAF50',
+              color: 'white',
+              padding: '10px 20px',
+              border: 'none',
+              borderRadius: '4px',
+              cursor: 'pointer',
+              width: '100%',
+              marginBottom: '10px',
+            }}
+          >
+            Share Join Link
+          </button>
+          <input
+            type="text"
+            readOnly
+            value={shareLink}
+            style={{
+              marginTop: '10px',
+              border: '1px solid #ddd',
+              padding: '5px',
+              borderRadius: '4px',
+              width: '100%',
+            }}
+          />
+          {showAttendance && <AttendanceList participants={participants} />}
+        </div>
+      )}
     </div>
   );
 };
 
+export const AttendanceList = ({ participants }) => {
+  return (
+    <div style={{
+      position: 'fixed', 
+      top: '20px', 
+      right: '20px', 
+      backgroundColor: '#fff', 
+      padding: '10px', 
+      boxShadow: '0px 4px 6px rgba(0, 0, 0, 0.1)', 
+      borderRadius: '8px',
+      zIndex: 1000,
+    }}>
+      <h3>Participants Joined</h3>
+      <ul>
+        {participants.map((participant) => (
+          <li key={participant.id} style={{color: 'black'}}>
+            {participant.name} ({participant.id})
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
 
-export default Stream;  
-
+export default Stream;
