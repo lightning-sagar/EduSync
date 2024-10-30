@@ -14,7 +14,7 @@ const Chat = () => {
   const [socket, setSocket] = useState(null);
   const [loading, setLoading] = useState(false);
   const [subjectName, setSubjectName] = useState('');
-  const { subjectId } = useParams();
+  const {id: subjectId } = useParams();
   const user = useRecoilValue(userAtom);
   const userId = user?._id;
   const messagesEndRef = useRef(null);

@@ -36,10 +36,7 @@ const AboutUs = () => {
             <h3>AI-based Chatbot</h3>
             <p>AI-powered chatbot to help students understand their learning gaps and provide assistance.</p>
           </div>
-          <div className="feature-item">
-            <h3>eBook Facilities</h3>
-            <p>Teachers can add free or paid eBooks. Students can order hard copies of eBooks.</p>
-          </div>
+          
           <div className="feature-item">
             <h3>Study Groups</h3>
             <p>Facilitate group studies with our easy-to-use group management feature.</p>

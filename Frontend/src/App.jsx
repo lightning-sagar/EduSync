@@ -31,12 +31,11 @@ const App = () => {
           <Route path="/about" element={<About />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/subject/:id" element={<><Class /></>} />
-          <Route path="/ebook/:id" element={<Ebook />} />  
           <Route path="/join/:id" element={<JoinSubject />} /> 
           <Route path='/:sId/stream/:callId' element={<Stream />} />
           <Route path='/whiteboard/:subjectId' element={<CompWhiteBoard />} />
           <Route path="/info/:id" element={<Info />} />  
-          <Route path="/chat/:subjectId" element={<><Chat /></>} />
+          <Route path="/chat/:id" element={<><Chat /></>} />
           <Route path="/Dashboard" element={<><Dashboard /></>} />
         </Routes>
       </> 

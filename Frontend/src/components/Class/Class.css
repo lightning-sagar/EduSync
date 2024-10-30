@@ -255,14 +255,12 @@
   font-size: 22px;
 }
 
-.classes-section ul,
-.ebooks-section ul {
+.classes-section ul{
   list-style: none;
   padding: 0;
 }
 
-.classes-section ul li,
-.ebooks-section ul li {
+.classes-section ul li{
   border: none;
   margin: 20px 0;
   padding: 15px;
@@ -273,8 +271,7 @@
   cursor: pointer;
 }
 
-.classes-section ul li:hover,
-.ebooks-section ul li:hover {
+.classes-section ul li:hover{
   border: 2px solid blue;
   background-color: #6b6bff;
 }
