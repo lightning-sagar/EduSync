@@ -21,12 +21,25 @@ const SubjectSchema = new mongoose.Schema({
         AssignmentText: {
             type: String,
         },
+        
         img: {
             type: String, 
         },
         dueDate: {
             type: Date
-        }
+        },
+        submittedBy: [{
+            userId: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User",
+            },
+            username: {
+                type: String
+            },
+            ansLink: {
+                type: String
+            },
+        }]
     }],
     coverImg: {
         type: String,
@@ -39,6 +52,7 @@ const SubjectSchema = new mongoose.Schema({
     students: [{
         stuId:{
             type: mongoose.Schema.Types.ObjectId,
+            ref: "User", 
             default: null
         }
     }],
@@ -46,6 +60,16 @@ const SubjectSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Chat",   
     }],
+    whiteboard: {
+        url: {
+            type: String,  
+            default: null
+        },
+        scene: {
+            type: Object,  
+            default: {}
+        }
+    }
 }, { timestamps: true });
 
 export default mongoose.model('Subject', SubjectSchema);

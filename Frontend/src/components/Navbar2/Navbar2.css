@@ -1,7 +1,8 @@
 #navbar2 {
 
   position: absolute;
-  background: rgba(0, 0, 0, 0.7);
+  background: linear-gradient(135deg, #6367a3, #26274d)!important;
+  /* background: linear-gradient(135deg, #ffe0b2, #ffcc80); */
   padding: 10px;
   display: flex;
   justify-content: space-around;
@@ -13,7 +14,7 @@
 
 .navbar2-btn{
   background: transparent;
-  color: white;
+  color: rgb(255, 255, 255);
   border: none;
   cursor: pointer;
   font-size: 20px;

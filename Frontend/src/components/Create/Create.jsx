@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import { AiOutlineCloudUpload } from "react-icons/ai"; 
+import { AiFillCloseCircle } from "react-icons/ai"; 
+import React, { useState, useEffect, useRef } from 'react';
 import './Create.css';
 import usePreviewImg from '../../hooks/usePrevImg';
 import uploadIcon from '../../assets/upload_area.png'; 
@@ -7,7 +9,7 @@ import noticeAtom from '../../atom/NoticeAtom';
 import assignmentAtom from '../../atom/AssignmentAtom';
 import { useParams } from 'react-router-dom';
 
-const Create = ({subjectId,handleClose }) => {
+const Create = ({ subjectId, handleClose }) => {
   const [textContent, setTextContent] = useState('');
   const { handleImageChange, imgUrl } = usePreviewImg();
   const [notice, setNotice] = useRecoilState(noticeAtom);
@@ -15,7 +17,9 @@ const Create = ({subjectId,handleClose }) => {
   const [selection, setSelection] = useState('notice');  
   const [assignmentDate, setAssignmentDate] = useState('');
   const [isPopupVisible, setPopupVisible] = useState(true);
- 
+  
+  const fileInputRef = useRef(null); // Declare ref
+
   useEffect(() => {
     console.log('Notice updated:', notice);
     console.log('Assignment updated:', assignment);
@@ -77,9 +81,7 @@ const Create = ({subjectId,handleClose }) => {
 
   return (
     <div className="create-container">
-      <button className="close-button" onClick={handleClose}>
-        &times;
-      </button>
+      <AiFillCloseCircle className="close-button" onClick={handleClose} />
       <h2>Create</h2>
       <div className="form-group">
         <label htmlFor="text-content">Text Content:</label>
@@ -99,14 +101,13 @@ const Create = ({subjectId,handleClose }) => {
             id="file-upload"
             accept=".jpg,.jpeg,.png"
             multiple
+            ref={fileInputRef} hidden
             onChange={handleImageChange}
-            style={{ display: 'none' }}  
+            style={{ display: 'none' }}
           />
-          <img
-            src={uploadIcon}
-            alt="Upload"
+          <AiOutlineCloudUpload
             className="upload-icon"
-            onClick={() => document.getElementById('file-upload').click()}  
+            onClick={() => fileInputRef.current.click()}  
           />
           {imgUrl && <img id="new" src={imgUrl} alt="Preview" />}
         </div>
@@ -114,7 +115,7 @@ const Create = ({subjectId,handleClose }) => {
       <div className="form-group">
         <label>Select Type:</label>
         <div className="radio-group">
-          <label>
+          <label className={`radio-label ${selection === 'assignment' ? 'checked' : ''}`}>
             <input
               type="radio"
               name="type"
@@ -124,7 +125,8 @@ const Create = ({subjectId,handleClose }) => {
             />
             Assignment
           </label>
-          <label>
+
+          <label className={`radio-label ${selection === 'assignment' ? 'checked' : ''}`}>
             <input
               type="radio"
               name="type"
@@ -140,15 +142,16 @@ const Create = ({subjectId,handleClose }) => {
 
       {selection === 'assignment' && (
         <div className="form-group">
-          <label htmlFor="assignment-date">Due Date:</label>
-          <input
-            type="date"
-            id="assignment-date"
-            value={assignmentDate}
-            onChange={(e) => setAssignmentDate(e.target.value)}
-            required
-          />
-        </div>
+        <label htmlFor="assignment-date">Due Date:</label>
+        <input
+          type="date"
+          id="assignment-date"
+          value={assignmentDate}
+          onChange={(e) => setAssignmentDate(e.target.value)}
+          min={new Date().toISOString().split("T")[0]}  
+          required
+        />
+      </div>
       )}
 
       <button className="submit-button" onClick={handleSubmit}>

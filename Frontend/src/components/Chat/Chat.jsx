@@ -6,6 +6,7 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { chatMessagesState } from '../../atom/chatAtom.js';  
 import { useParams } from 'react-router-dom';
 import userAtom from '../../atom/UserAtom.js';
+import Navbar2 from '../Navbar2/Navbar2.jsx';
 
 const Chat = () => {
   const [messages, setMessages] = useRecoilState(chatMessagesState);
@@ -32,6 +33,7 @@ const Chat = () => {
       socketInstance.disconnect();
     };
   }, [subjectId, userId]);
+
   useEffect(() => {
     const fetchMessages = async () => {
       try {
@@ -60,17 +62,20 @@ const Chat = () => {
 
     fetchMessages();
   }, [subjectId]);
+
   useEffect(() => {
     if (messagesEndRef.current) {
       messagesEndRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   }, [messages]);
+
   const handleSendMessage = () => {
     if (newMessage.trim() && socket) {
       socket.emit("newMessage", { subjectId, message: newMessage, sender: userId });
       setNewMessage('');  
     }
   };
+
   const handleCreateClick = () => {
     console.log("Create button clicked");
   };
@@ -84,11 +89,12 @@ const Chat = () => {
 
   return (
     <>
-
       <div className="app-container">
         <Sidebar className="sidebar-chat" />
         <div className="chat-container">
+
           <div className="main-chat-container">
+
             <div className="chat-header">
               Chat with Group - {subjectName} 
             </div>
@@ -103,11 +109,17 @@ const Chat = () => {
                     className={`message ${msg.sender._id === userId ? 'message-self' : 'message-other'}`}
                   >
                     <div className="message-content">
-                      <img
-                        src={msg.sender.imageUrl || '/path/to/default-avatar.jpg'}
-                        alt="User"
-                        className="message-icon"
-                      />
+                      {msg.sender.image ? (
+                        <img
+                          src={msg.sender.image}
+                          alt="User"
+                          className="message-icon"
+                        />
+                      ) : (
+                        <div className="message-placeholder">
+                          {msg.sender.username.charAt(0).toUpperCase()}
+                        </div>
+                      )}
                       <div className="message-info">
                         <span className="message-username">{msg.sender.username}</span>
                         <p className="message-text">{msg.message}</p>

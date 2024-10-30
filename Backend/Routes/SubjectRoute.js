@@ -1,6 +1,6 @@
 import express from "express";
 import { protectRoute } from "../Middleware/protectRoute.js";
-import { Addsubject,GetSubject,updateUserD,getAllstu,AddNoticeOrAssignment,GetNotice,deleteAssignment,deleteNotice,deleteSubject,addstudent,GetAssignment } from "../Controllers/SubjectController.js";
+import { Addsubject,GetSubject,getTeacher,updateUserD,getAssignment,uploadAssignment,createOrOpenWhiteboard,getAllstu,AddNoticeOrAssignment,GetNotice,deleteAssignment,deleteNotice,deleteSubject,addstudent,GetAssignment } from "../Controllers/SubjectController.js";
 
 const router = express.Router();
 
@@ -15,5 +15,9 @@ router.delete('/:subjectId',protectRoute,deleteSubject)
 router.post('/join/:subjectId',protectRoute,addstudent);
 router.get('/getpartsubject/:subId',protectRoute,getAllstu);
 router.put('/updateUserDetails/:stuId', updateUserD);  
+router.get('/:subjectId/whiteboard',protectRoute,createOrOpenWhiteboard);
+router.post('/:assignmentId/:subjectId/upload',protectRoute,uploadAssignment);
+router.get('/:assignmentId/:subjectId', protectRoute, getAssignment);
+router.get('/Teacher/:subjectId/Teach',getTeacher);
 
 export default router;

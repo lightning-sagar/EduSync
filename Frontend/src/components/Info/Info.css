@@ -18,7 +18,7 @@
   width: 80%;
   border-left: 2px solid white;
   padding: 20px;
-  background-color: #212121;
+  background: linear-gradient(to bottom right, #ffffff, #6b6bff ) !important;
   /* gap: 20px; */
   position: relative;
 }
@@ -57,10 +57,12 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  max-width: 100%;
   background-color: #fff;
   padding: 10px;
   border: 1px solid #ddd;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, width 0.3s ease;
 }
 .info-wrapper{
   display: flex;
@@ -258,11 +260,24 @@
   .secondary-navbar {
     padding: 10px;
   }
+  .sidebar{
+    display: none;
+  }
+  .secondary-navbar-container{
+    width: 100%;
+  }
+  
 }
 
 @media only screen and (max-width: 480px) {
   .secondary-navbar {
     padding: 10px;
+  }
+  .sidebar{
+    display: none;
+  }
+  .secondary-navbar-container{
+    width: 100%;
   }
 }
 

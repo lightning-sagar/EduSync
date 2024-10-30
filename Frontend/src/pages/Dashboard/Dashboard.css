@@ -1,0 +1,89 @@
+.profile-form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+}
+
+.profile-form-card {
+    background-color: #8e83ff;
+    border-radius: 15px;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 500px;
+    text-align: center;
+}
+
+.profile-picture {
+    position: relative;
+    margin-bottom: 20px;
+}
+
+.user-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 3px solid white;
+}
+
+.edit-button {
+    position: absolute;
+    bottom: 0;
+    right: 15px;
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 10px;
+}
+
+.profile-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.profile-form label {
+    font-size: 0.9rem;
+    color: white;
+    margin-bottom: 5px;
+    text-align: left;
+}
+
+.profile-form input {
+    padding: 10px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.input-with-flag {
+    display: flex;
+    align-items: center;
+}
+
+.flag {
+    background-color: white;
+    padding: 10px;
+    margin-right: 5px;
+    border-radius: 5px 0 0 5px;
+}
+
+.save-button {
+    background-color: #3f3dff;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.save-button:hover {
+    background-color: #2f2dff;
+}

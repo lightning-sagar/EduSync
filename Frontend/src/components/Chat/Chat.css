@@ -1,19 +1,32 @@
 .app-container {
   display: flex;
   height: 90vh;
-  background-color: #212121;
   color: white;
   overflow: hidden;
 }
 .main-chat-container{
   background-color: transparent;
 }
+.message-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background-color: #ddd;
+  border-radius: 50%;
+  font-weight: bold;
+  font-size: 18px;
+  color: #555;
+  text-transform: uppercase;
+  margin-right: 20px;
+}
+
 .chat-container {
   overflow: auto;
   height: 90vh;
-  width: 80%;
+  width: 82%;
   border-left: 2px solid white;
-  background-color: #212121;
   position: relative;
 }
 .chat-container::-webkit-scrollbar{
@@ -21,11 +34,12 @@
 }
 
 .chat-header {
-  margin-bottom: 20px;
+  margin-top: 70px;
   position: sticky;
   width: 100%;
-  background-color: #a5a5a5;
+  background: linear-gradient(135deg, #6367a3, #26274d) !important;
   padding: 15px;
+  color: #ffffff;
   font-size: 1.2em;
   border-bottom: 1px solid #ddd;
   text-align: center; 
@@ -34,7 +48,6 @@
 
 
 .chat-messages {
-  margin-bottom: 80px;
   top: 20px;
   flex: 1;
   padding: 15px;
@@ -97,12 +110,12 @@
 
 .chat-input {
   position: fixed;
-  width: 80%;
+  width: 82%;
   bottom: 0;
   display: flex;
   border-top: 1px solid #ddd;
   padding: 10px;
-  background-color: #1a1a1a;
+  background-color: #6b6bff;
 }
 .chatBot-popup{
   position: fixed;
@@ -117,12 +130,23 @@
 .chat-input input {
   flex: 1;
   padding: 10px;
-  border: 1px solid #ddd;
+  color: black;
+  background: linear-gradient(to bottom right, #ffffff, #6b6bff ) !important;
+  border: 1px solid #0077ff;
   border-radius: 15px;
   margin-right: 10px;
   padding: 5px;
 }
-
+.sidebar{
+  width: auto;
+}
+.chat-header{
+  margin-top: 0;
+}
+.chat-messages{
+  margin-top: 0;
+  margin-bottom: 50px;
+}
 .chat-input button {
   padding: 10px 15px;
   border: none;
@@ -134,4 +158,19 @@
 
 .chat-input button:hover {
   background-color: #007bb5;
+}
+
+@media screen and (max-width: 720px) {
+  .chat-header{
+    margin-top: 0;
+  }
+  .chat-container{
+    width: 100%;
+  }
+  .chat-input{
+    width: 100%;
+  }
+  .chat-messages{
+    margin-bottom: 50px!important;
+  }
 }

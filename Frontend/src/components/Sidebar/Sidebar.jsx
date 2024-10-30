@@ -33,7 +33,8 @@ const Sidebar = () => {
         <div className="classes-section">
           <h3>Classes</h3>
           {loadingSubjects ? (
-            <Loader /> 
+            <>
+            </>
           ) : (
             Subjects.map((subject) => (
               <ul key={subject._id}>

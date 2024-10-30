@@ -115,7 +115,7 @@ const Info = () => {
   }, [subjectId]);
 
   const handleDelete = () => {
-    // Delete user logic here
+    //TODO: Implement delete functionality here and make the controller
   };
 
   return (

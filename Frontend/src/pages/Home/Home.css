@@ -7,6 +7,10 @@
     padding: 20px;
 }
 
+.login-prompt{
+  width: 100vh;
+  height: 100vh;
+}
 
 .flashmessage {
 

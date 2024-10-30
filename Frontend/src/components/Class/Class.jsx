@@ -1,7 +1,7 @@
+import { BsThreeDotsVertical } from "react-icons/bs";
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import './Class.css';
-import Create from '../../components/Create/Create';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import noticeAtom from '../../atom/NoticeAtom.js';
 import userAtom from '../../atom/UserAtom.js';
@@ -16,7 +16,30 @@ const ImageModal = ({ imageSrc, onClose }) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        {imageSrc && <img src={imageSrc} alt="Notice" />}
+        {imageSrc && <img src={imageSrc} alt="Notice" className="modal-image" />}
+      </div>
+    </div>
+  );
+};
+
+const SubmissionsModal = ({ assignmentData, onClose }) => {
+  return (
+    <div className="modal-overlay" onClick={onClose}>
+      {console.log(assignmentData)}
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <h3>Assignment Submissions</h3>
+        <div className="submissions-list">
+ 
+          { assignmentData &&
+            assignmentData.map((submission) => (
+              <div key={submission.userId} className="submission-item">
+                <p>Submitted by: {submission.username}</p>
+                <p>Submission Link: <a href={submission.ansLink} target="_blank" rel="noopener noreferrer">View Link</a></p>
+              </div>
+            ))
+          }
+        </div>
+        <button onClick={onClose}>Close</button>
       </div>
     </div>
   );
@@ -25,11 +48,8 @@ const ImageModal = ({ imageSrc, onClose }) => {
 const Class = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedImage, setSelectedImage] = useState('');
-
   const [loadingNotices, setLoadingNotices] = useState(true);
   const [loadingAssignments, setLoadingAssignments] = useState(true);
-  const [loadingSubjects, setLoadingSubjects] = useState(true);
-
   const [assignments, setAssignments] = useRecoilState(assignmentAtom);
   const [shareableLink, setShareableLink] = useState('');
   const navigate = useNavigate();
@@ -37,8 +57,12 @@ const Class = () => {
   const [Notice, SetNotice] = useRecoilState(noticeAtom);
   const user = useRecoilValue(userAtom);
   const [Subjects, setSubjects] = useRecoilState(subjectAtom);
-
   const [teacher, setTeacher] = useState('');
+  const [file, setFile] = useState(null);
+  const [showDropdown, setShowDropdown] = useState(null);
+  const [isSubmissionsModalVisible, setIsSubmissionsModalVisible] = useState(false);
+  const [assignmentData, setAssignmentData] = useState([]);
+  const [submitlink, setsubmitlink] = useState('');
 
   useEffect(() => {
     if (!subjectId) {
@@ -61,9 +85,6 @@ const Class = () => {
   }, [subjectId, SetNotice]);
 
   useEffect(() => {
-    if (!subjectId) {
-      navigate('/');
-    }
     const getAssignments = async () => {
       setLoadingAssignments(true);   
       try {
@@ -79,31 +100,12 @@ const Class = () => {
     getAssignments();
   }, [subjectId, setAssignments]);
 
-  useEffect(() => {
-    const getSubject = async () => {
-      setLoadingSubjects(true);  
-      try {
-        const response = await fetch(`/api/s/${user._id}`);
-        const data = await response.json();
-        setSubjects(data);
-      } catch (error) {
-        console.error(error);
-      } finally {
-        setLoadingSubjects(false);  
-      }
-    };
-    getSubject();
-  }, [user._id]);
-
   const handleDeleteNotice = async (noticeId) => {
     try {
       const response = await fetch(`/api/s/notice/${subjectId}/${noticeId}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
-      const data = await response.json();
       if (response.ok) {
         SetNotice(Notice.filter((notice) => notice._id !== noticeId));
       }
@@ -116,18 +118,16 @@ const Class = () => {
     try {
       const response = await fetch(`/api/s/assignment/${subjectId}/${assignmentId}`, {
         method: 'DELETE',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
       });
-      const data = await response.json();
       if (response.ok) {
         setAssignments(assignments.filter((assignment) => assignment._id !== assignmentId));
       }
     } catch (error) {
       console.error(error);
     }
-  }
+  };
+
   const handleNoticeClick = (imgSrc) => {
     setSelectedImage(imgSrc);
     setIsModalVisible(true);
@@ -137,53 +137,124 @@ const Class = () => {
     setIsModalVisible(false);
   };
 
+  const handleLinkUpload = async (assignmentId) => {
+    try {
+      console.log(shareableLink,"shareableLink")
+      const res = await fetch(`/api/s/${assignmentId}/${subjectId}/upload`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ assignmentLink: shareableLink }),  
+      });
+
+      if (res.ok) {
+        alert('Link submitted successfully!');
+      }
+      console.log(res);
+    } catch (error) {
+      console.error(error);
+    }    
+    setShowDropdown(null);
+  };
+
+  const handleViewSubmissions = async (assignmentId) => {
+    try {
+      const response = await fetch(`/api/s/${assignmentId}/${subjectId}`);
+      const data = await response.json();
+      console.log(data.returnAss);
+      setAssignmentData(data.returnAss);
+      setIsSubmissionsModalVisible(true);
+    } catch (error) {
+      console.error('Error fetching submissions:', error);
+    }
+  };
+
   return (
     <div className="class-container">
-      <Sidebar/>
+      <Sidebar />
       <main className="content">
-        {console.log(teacher,"tex")}
-        <Navbar2 className="navbar2-class" subtecher={teacher} userId={user.username}/>
-
+        {console.log(teacher)}
+        <Navbar2 className="navbar2-class" subtecher={teacher} userId={user.username} />
 
         <section className="notices-section">
-          {loadingNotices ? (
-            <Loader />  
-          ) : (
-            Notice && Array.isArray(Notice) && Notice.map((notice) => (
+          {loadingNotices ? <Loader /> : (
+            Notice.map((notice) => (
               <section key={notice._id} className="notice">
-                <h2>{notice.NoticeText}</h2>
+                {notice.img && (
+                  <img
+                    className='noticeimage'
+                    src={notice.img}
+                    alt="Notice"
+                    onClick={() => handleNoticeClick(notice.img)}
+                  />
+                )}
+                <h4>{notice.NoticeText}</h4>
+                
                 {teacher === user.username && (
                   <button className="notice-delete-button" onClick={() => handleDeleteNotice(notice._id)}>
-                    <LuDelete />
+                    <LuDelete /> 
                   </button>
                 )}
-                {notice.img && <img className='noticeimage' src={notice.img} alt="Notice" onClick={() => handleNoticeClick(notice.img)} />}
               </section>
             ))
           )}
         </section>
 
         <section className="assignments-section">
-          {loadingAssignments ? (
-            <Loader /> 
-          ) : (
-            assignments && Array.isArray(assignments) && assignments.map((assignment) => (
+          {loadingAssignments ? <Loader /> : (
+            assignments.map((assignment) => (
               <div key={assignment._id} className="assignment-card">
-                
+                  {assignment.img && (
+                    <img 
+                      src={assignment.img}  
+                      alt="Assignment"
+                      className="assignment-image"
+                      onClick={() => handleNoticeClick(assignment.img)}
+                    />
+                  )}
+                <h2>{assignment.AssignmentText} &nbsp;&nbsp;
+                  <BsThreeDotsVertical
+                  className="three-dot-icon"
+                  onClick={() => setShowDropdown(showDropdown === assignment._id ? null : assignment._id)}
+                /></h2>
+                {console.log(assignment,"ass")}
                 {teacher === user.username && (
-                  <button className="assignment-delete-button" onClick={() => handleDeleteAssignment(assignment._id)}>
-                    <LuDelete />
+                  <button className="notice-delete-button" onClick={() => handleDeleteAssignment(assignment._id)}>
+                    <LuDelete /> 
                   </button>
                 )}
-                {assignment.img && <img className="assignment-image" src={assignment.img} alt="Assignment" onClick={() => handleNoticeClick(assignment.img)}/>}
-                <div className="assignment-text">
-                  <h2>{assignment.AssignmentText}</h2>
-                  <p className='assignment-description'>Due: {new Date(assignment.dueDate).toLocaleDateString()}</p>
+                <p className='assignment-description'>Due: {new Date(assignment.dueDate).toLocaleDateString()}</p>
+                <div className="three-dot-menu">
+                  {showDropdown === assignment._id && (
+                    <div className="dropdown-menu">
+                      {teacher === user.username ? (
+                        <>
+                          <button onClick={() => handleViewSubmissions(assignment._id)}>
+                            View Submissions
+                          </button>
+                        </>
+                      ) : (
+                          
+                        <div className="link-upload-field">
+                          <input
+                            type="text"
+                            value={shareableLink}
+                            onChange={(e) => setShareableLink(e.target.value)}
+                          />
+                          <button onClick={() => handleLinkUpload(assignment._id)}>
+                            Submit Link
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  )}
                 </div>
               </div>
             ))
           )}
         </section>
+
+        {isModalVisible && <ImageModal imageSrc={selectedImage} onClose={handleCloseModal} />}
+        {isSubmissionsModalVisible && <SubmissionsModal assignmentData={assignmentData} onClose={() => setIsSubmissionsModalVisible(false)} />}
       </main>
     </div>
   );

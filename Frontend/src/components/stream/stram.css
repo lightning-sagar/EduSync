@@ -1,3 +1,13 @@
+.str-video__participant-details__name{
+  color: #ffffff;
+}
+
+.arrow{
+  /* position="relative" margin-left={"-5px"} top="5px" */
+  position: absolute;
+  margin-left: -11px;
+  top: 7px;
+}
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
@@ -5,14 +15,16 @@
 
   color-scheme: light dark;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
-
+  background: linear-gradient(to bottom right, #ffffff, #6b6bff ) !important;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
- 
+.str-video__video-placeholder{
+  background: linear-gradient(to bottom right, #4c728cab, #7e7eff) !important;
+}
+
 a {
   font-weight: 500;
   color: #646cff;
@@ -60,7 +72,7 @@ button:focus-visible {
 }
  
 .str-video {
-  background-color: #272a30;
+  background: linear-gradient(to bottom right, #ffffff, #6b6bff ) !important;
   bottom: 0;
   position: absolute;
   color: #ffffff;

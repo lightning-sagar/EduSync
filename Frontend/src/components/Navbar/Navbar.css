@@ -1,14 +1,12 @@
-
 .navbar {
     position: sticky;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    color: #ffffff;
+    color: #000000!important;
     padding: 10px 20px;
-    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.9);
-
-    background-color: #333;
+    box-shadow: 0px 2px 4px rgba(63, 0, 255, 0.9);
+    background-color: #f0f8ff;
     z-index: 1000;
 }
 
@@ -27,133 +25,21 @@
     list-style-type: none;
     margin: 0;
     padding: 0;
-    color: white;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
 }
 
 .menu ul li {
     font-family: "Outfit";
     font-weight: 500;
-    display: inline;
-    margin: 0 20px;
     font-size: 20px;
     cursor: pointer;
-    background-color:transparent;
-    transition: 0.5;
+    transition: transform 0.3s ease;
 }
 
 .menu ul li:hover {
     transform: scale(1.05);
-}
-
-.modes {
-    margin-right: 40px; 
-}
-
-.switch {
-    font-size: 17px;
-    position: relative;
-    display: inline-block;
-    width: 64px;
-    height: 34px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #183153;
-    transition: .4s;
-    border-radius: 30px;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 30px;
-    width: 30px;
-    border-radius: 20px;
-    left: 2px;
-    bottom: 2px;
-    z-index: 2;
-    background-color: #e8e8e8;
-    transition: .4s;
-}
-
-.sun svg {
-    position: absolute;
-    top: 6px;
-    left: 36px;
-    z-index: 1;
-    width: 24px;
-    height: 24px;
-}
-
-.moon svg {
-    fill: #73C0FC;
-    position: absolute;
-    top: 5px;
-    left: 5px;
-    z-index: 1;
-    width: 24px;
-    height: 24px;
-}
-
-.sun svg {
-    animation: rotate 15s linear infinite;
-}
-
-@keyframes rotate {
-    0% {
-        transform: rotate(0);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
-.moon svg {
-    animation: tilt 5s linear infinite;
-}
-
-@keyframes tilt {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    25% {
-        transform: rotate(-10deg);
-    }
-
-    75% {
-        transform: rotate(10deg);
-    }
-
-    100% {
-        transform: rotate(0deg);
-    }
-}
-
-.input:checked + .slider {
-    background-color: #183153;
-}
-
-.input:focus + .slider {
-    box-shadow: 0 0 1px #183153;
-}
-
-.input:checked + .slider:before {
-    transform: translateX(30px);
 }
 
 .authorise button {
@@ -164,9 +50,118 @@
     border-radius: 4px;
     cursor: pointer;
     font-size: 18px;
-    transition: 0.8s;
+    transition: border 0.3s ease;
 }
 
 .authorise button:hover {
     border: 2px solid white;
+}
+
+.profile-container {
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+.profile-image {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.profile-initial {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #007bff;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    cursor: pointer;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 8px;
+    padding: 10px;
+    min-width: 120px;
+    z-index: 1000;
+}
+
+.dropdown-menu a, .dropdown-menu button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    color: #333;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.dropdown-menu a:hover, .dropdown-menu button:hover {
+    background-color: #f0f8ff;
+    color: #007bff;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .navbar {
+         align-items: flex-start;
+    } 
+
+    .menu {
+        width: 100%;
+        text-align: left;
+        display: none;
+    }
+
+    .menu ul {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .menu ul li {
+        margin: 10px 0;
+    }
+
+    .menu-toggle {
+        display: block;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        font-size: 24px;
+        color: #000;
+    }
+
+    .menu.show {
+        display: block;
+    }
+    .profile-image, .profile-initial {
+        display: none;
+    }
+}
+
+/* Small screens (mobile devices) */
+@media (max-width: 480px) {
+    .authorise button {
+        font-size: 16px;
+        padding: 6px 12px;
+    }
+
+    .profile-image, .profile-initial {
+        display: none;
+    }
+
+    .menu ul li {
+        font-size: 18px;
+    }
 }
