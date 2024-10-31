@@ -1,8 +1,14 @@
+Here’s the updated document with the problem statement added at the beginning:
 
-# Smart Classroom Management System
+---
+
+# EduSys (Smart Classroom Management System)
+
+## Problem Statement
+Educational institutions and instructors face numerous challenges in managing virtual classrooms and engaging students effectively during remote learning. Traditional systems often lack features for real-time communication, automated attendance, and interactive tools, making it difficult to recreate an immersive classroom experience online. The **EduSys (Smart Classroom Management System) (Smart Classroom Management System)** aims to address these challenges by providing a comprehensive platform for educators to manage assignments, notices, quizzes, virtual meetings, and student attendance with ease. This system enhances the teaching and learning experience by integrating real-time communication tools, a dedicated chat system, and a seamless virtual classroom environment tailored to meet the needs of educational institutions and their instructors.
 
 ## Overview
-The **Smart Classroom Management System** is a comprehensive solution designed to enhance the learning experience for both educators and students. Built using the MERN stack (MongoDB, Express.js, React.js, Node.js), this application leverages **Socket.IO** for real-time communication and the **Stream SDK** for chat functionalities.
+The **EduSys (Smart Classroom Management System)** is a comprehensive solution designed to enhance the learning experience for both educators and students. Built using the MERN stack (MongoDB, Express.js, React.js, Node.js), this application leverages **Socket.IO** for real-time communication and the **Stream SDK** for chat functionalities.
 
 ## Features
 - **Create and Manage Assignments and Notices**: Easily create, edit, and manage assignments and important notices for students.
@@ -74,4 +80,3 @@ This project is licensed under the MIT License. See the [LICENSE](LICENSE) file 
 ---
 
 Feel free to customize the contact information, repository URL, and any other details to fit your project's specifics!
-```
