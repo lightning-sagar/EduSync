@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './Navbar.css';
 import logo from '../../assets/logo.jpg';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import uselogout from '../../hooks/logout.jsx';
 import { FaTimes } from 'react-icons/fa';
 import { AiFillFileImage } from 'react-icons/ai';
@@ -17,7 +17,7 @@ const Navbar = ({ setShowLogin }) => {
         username: userData?.username || '',
         image: userData?.image || ''
     });
-    
+    const navigate = useNavigate();
     const logout = uselogout();
     const fileInputRef = useRef(null);
 
@@ -81,7 +81,7 @@ const Navbar = ({ setShowLogin }) => {
     return (
         <div className='navbar'>
             <div className="logo">
-                <img src={logo} alt="EduSync Logo" />
+                <img onClick={()=>navigate("/")} src={logo} alt="EduSync Logo" />
             </div>
             <div className="menu">
                 <ul>
