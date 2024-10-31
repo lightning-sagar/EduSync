@@ -145,9 +145,7 @@
     .menu.show {
         display: block;
     }
-    .profile-image, .profile-initial {
-        display: none;
-    }
+     
 }
 
 /* Small screens (mobile devices) */
@@ -157,9 +155,7 @@
         padding: 6px 12px;
     }
 
-    .profile-image, .profile-initial {
-        display: none;
-    }
+   
 
     .menu ul li {
         font-size: 18px;

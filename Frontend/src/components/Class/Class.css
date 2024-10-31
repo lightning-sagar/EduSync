@@ -545,6 +545,10 @@ h3{
     width: 100%;
   }
 
+  .notice{
+    display: block !important;
+  }
+
   .assignment-card,
   .notice {
     width: 100%;
