@@ -1,6 +1,4 @@
-Here’s the updated document with the problem statement added at the beginning:
 
----
 
 # EduSys (Smart Classroom Management System)
 
@@ -78,5 +76,3 @@ Contributions are welcome! Please fork the repository and create a pull request 
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
 ---
-
-Feel free to customize the contact information, repository URL, and any other details to fit your project's specifics!
