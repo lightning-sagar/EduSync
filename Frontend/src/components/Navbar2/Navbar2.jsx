@@ -52,9 +52,9 @@ const Navbar2 = ({ subtecher, userId }) => {
   };
 
   const handleShareButtonClick = () => {
+    setIsShareVisible(true);
     const link = `${window.location.origin}/join/${subjectId}`;
     setShareableLink(link);
-    setIsShareVisible(true);
   };
 
   const handleCopyToClipboard = () => {
