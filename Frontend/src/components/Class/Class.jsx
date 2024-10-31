@@ -176,8 +176,11 @@ const Class = () => {
         <Navbar2 className="navbar2-class" subtecher={teacher} userId={user.username} />
 
         <section className="notices-section">
+        <h2 style={{textAlign: 'center'}}> Notice  </h2>
+
           {loadingNotices ? <Loader /> : (
             Notice.map((notice) => (
+              
               <section key={notice._id} className="notice">
                 {notice.img && (
                   <img
@@ -200,6 +203,7 @@ const Class = () => {
         </section>
 
         <section className="assignments-section">
+        <h2 style={{textAlign: 'center'}}> Assign</h2>
           {loadingAssignments ? <Loader /> : (
             assignments.map((assignment) => (
               <div key={assignment._id} className="assignment-card">
