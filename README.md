@@ -1,29 +1,29 @@
 
-
 # EduSys (Smart Classroom Management System)
 
+![image](https://github.com/user-attachments/assets/cda79992-a8c8-493f-a3dd-d664d162fe33)
+
 ## Problem Statement
-Educational institutions and instructors face numerous challenges in managing virtual classrooms and engaging students effectively during remote learning. Traditional systems often lack features for real-time communication, automated attendance, and interactive tools, making it difficult to recreate an immersive classroom experience online. The **EduSys (Smart Classroom Management System) (Smart Classroom Management System)** aims to address these challenges by providing a comprehensive platform for educators to manage assignments, notices, quizzes, virtual meetings, and student attendance with ease. This system enhances the teaching and learning experience by integrating real-time communication tools, a dedicated chat system, and a seamless virtual classroom environment tailored to meet the needs of educational institutions and their instructors.
+Educational institutions face challenges in managing virtual classrooms and ensuring active student engagement during remote learning. Teachers need tools that support interactive teaching methods, allow for real-time communication, and simplify administrative tasks like attendance tracking and assignment distribution. EduConnect aims to address these needs by providing a virtual classroom management platform where teachers can create and manage their own subjects, post assignments and notices, conduct meetings with real-time whiteboard capabilities, and engage students through dedicated group chats. Additionally, EduConnect includes a Real-Time Attendance Checker to streamline attendance tracking during virtual sessions, ultimately enhancing teaching effectiveness and learning outcomes for institutions.
 
 ## Overview
-The **EduSys (Smart Classroom Management System)** is a comprehensive solution designed to enhance the learning experience for both educators and students. Built using the MERN stack (MongoDB, Express.js, React.js, Node.js), this application leverages **Socket.IO** for real-time communication and the **Stream SDK** for chat functionalities.
+The **EduSys (Smart Classroom Management System)** is a comprehensive solution designed to enhance the learning experience for both educators and students. Built using the MERN stack (MongoDB, Express.js, React.js, Node.js), this application leverages **Socket.IO** for real-time communication, the **Stream SDK** for chat functionalities, and integrates an AI-powered chatbot to assist with common queries and guidance.
 
 ## Features
 - **Create and Manage Assignments and Notices**: Easily create, edit, and manage assignments and important notices for students.
-- **Integrated Quiz System**: A fully functional quiz system for assessments (currently in development).
-- **Automated Attendance System**: Attendance tracking using QR code scanning or facial recognition (still in progress).
-- **Zoom Integration**: Seamless virtual meetings and classes through Zoom.
+- **AI-Powered Chatbot**: A responsive chatbot to assist students and teachers by answering frequently asked questions, providing guidance on using the platform, and supporting general queries.
 - **Group Chat Functionality**: Enable communication within different classes with a dedicated group chat feature.
-- **Comprehensive Dashboard**: An intuitive dashboard for easy management and tracking of all classroom activities.
-- **Book Section**: Users can browse and purchase books relevant to their courses.
-- **Chat Box**: Real-time chat functionality for instant communication among users.
+- **Class Meeting**: A Class Meeting is a scheduled virtual session where teachers and students connect for instruction, discussion, and support.
+- **Real-Time Attendance**: Automatically captures participant names during Class Meetings, allowing teachers to easily mark attendance for their institution.
+- **Interactive Whiteboard**: A virtual whiteboard for teachers to visually explain concepts, draw diagrams, and facilitate collaborative learning during Class Meetings.
 
 ## Technologies Used
 - **Frontend**: React.js
 - **Backend**: Node.js with Express.js
 - **Database**: MongoDB
 - **Real-Time Communication**: Socket.IO
-- **Chat Functionality**: Stream SDK
+- **Meet Functionality**: Stream SDK
+- **AI Chatbot**: Gemini ai
 
 ## Installation
 To set up the project locally, follow these steps:
@@ -35,7 +35,7 @@ To set up the project locally, follow these steps:
 
 2. **Navigate to the project directory**:
    ```bash
-   cd smart-classroom-management-system
+   cd EduSync
    ```
 
 3. **Install dependencies**:
@@ -67,7 +67,7 @@ To set up the project locally, follow these steps:
    ```
 
 ## Usage
-Once the application is running, you can access it via `http://localhost:3000`. Use the dashboard to navigate through the various features and manage classroom activities.
+Once the application is running, you can access it via `http://localhost:3000`. Use the dashboard to navigate through the various features, manage classroom activities, and interact with the AI-driven chatbot for assistance.
 
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request for any enhancements or bug fixes.
@@ -75,4 +75,3 @@ Contributions are welcome! Please fork the repository and create a pull request 
 ## License
 This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
 
----
