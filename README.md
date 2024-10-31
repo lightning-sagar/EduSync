@@ -69,6 +69,9 @@ To set up the project locally, follow these steps:
 ## Usage
 Once the application is running, you can access it via `http://localhost:3000`. Use the dashboard to navigate through the various features, manage classroom activities, and interact with the AI-driven chatbot for assistance.
 
+## Acknowledgments
+A big thank you to **@Anurag-singh-thakur** for their invaluable help with the frontend. Your expertise and support made a significant impact on the project.
+
 ## Contributing
 Contributions are welcome! Please fork the repository and create a pull request for any enhancements or bug fixes.
 
