@@ -14,20 +14,14 @@ export default defineConfig({
     },
   },
   build: {
-    chunkSizeWarningLimit: 1000, // Adjust as necessary
+    chunkSizeWarningLimit: 1000,
     rollupOptions: {
       output: {
         manualChunks(id) {
-          // Group larger modules into separate chunks
           if (id.includes('node_modules')) {
-            if (id.includes('react')) {
-              return 'vendor_react';
-            }
-            if (id.includes('lodash')) {
-              return 'vendor_lodash';
-            }
-            // Add more conditions for libraries as needed
-            return 'vendor';
+            // Create separate chunks for larger libraries
+            if (id.includes('react')) return 'react';
+            if (id.includes('other-large-lib')) return 'other-large-lib';
           }
         },
       },
