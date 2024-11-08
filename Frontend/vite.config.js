@@ -1,12 +1,8 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  define: {
-    "process.env.IS_PREACT": JSON.stringify("true"),
-  },
   server: {
     port: 3000,
     proxy: {
@@ -14,6 +10,26 @@ export default defineConfig({
         target: 'http://localhost:5000',
         changeOrigin: true,
         secure: false,
+      },
+    },
+  },
+  build: {
+    chunkSizeWarningLimit: 1000, // Adjust as necessary
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          // Group larger modules into separate chunks
+          if (id.includes('node_modules')) {
+            if (id.includes('react')) {
+              return 'vendor_react';
+            }
+            if (id.includes('lodash')) {
+              return 'vendor_lodash';
+            }
+            // Add more conditions for libraries as needed
+            return 'vendor';
+          }
+        },
       },
     },
   },
