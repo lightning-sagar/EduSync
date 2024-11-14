@@ -7,7 +7,7 @@ export default defineConfig({
     port: 3000,
     proxy: {
       "/api": {
-        target: 'https://edu-sync-eight.vercel.app',
+        target: 'https://edu-sync-ra204hms3-lightning-sagars-projects.vercel.app',
         changeOrigin: true,
         secure: false,
       },
