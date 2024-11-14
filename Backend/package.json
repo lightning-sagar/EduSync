@@ -1,11 +1,9 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "main": "app.js",
+  "main": "index.js",
   "scripts": {
-    "dev": "cross-env nodemon Backend/app.js",
-    "start": "cross-env node Backend/app.js",
-    "build": "npm install"
+    "start": "node index.js"
   },
   "type": "module",
   "keywords": [],
