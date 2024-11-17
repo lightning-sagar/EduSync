@@ -6,11 +6,7 @@ import Subject from "../Models/Subject.js";
 import User from "../Models/User.js"; 
 
 const app = express();
-app.use(cors({
-    origin: "https://edu-sync-front.vercel.app", // Allow requests from your frontend
-    methods: ["GET", "POST"],       // Allowed HTTP methods
-    credentials: true,              // Include credentials (cookies, authorization headers, etc.)
-}));
+
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
