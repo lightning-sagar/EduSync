@@ -16,7 +16,7 @@ export const SocketContextProvider =({children})=>{
     const user = useRecoilValue(userAtom);
     const [onlineUser,setOnlineUser] = useState([])
     useEffect(()=>{
-       const socket = io("https://backend-1rvpsf3cb-lightning-sagars-projects.vercel.app/",{
+       const socket = io("https://edu-sync-backend-hecj1wnyj-lightning-sagars-projects.vercel.app/",{
            query:{
             userId: user?._id,
            }
