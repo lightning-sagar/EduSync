@@ -11,13 +11,7 @@ import ChatRoute from './Routes/ChatRoute.js';
 import {app,server } from "./socket/socket.js"
 import cors from 'cors';
 
-app.use(cors(
-    {
-        origin: ["http://localhost:5000", "https://edu-sync-front.vercel.app/"],
-        methods: ["GET", "POST", "PUT", "DELETE"],  
-        credentials: true
-    }
-));
+app.use(cors());
 
 dotenv.config();
 cloudinary.config({
