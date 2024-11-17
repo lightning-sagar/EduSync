@@ -31,6 +31,7 @@ const Chatbot = () => {
           headers: {
             'Content-Type': 'application/json',
           },
+          credentials: 'include',
           body: JSON.stringify({ message: userMessage }),
         });
   

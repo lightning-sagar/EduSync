@@ -91,7 +91,10 @@ const Class = () => {
     const getAssignments = async () => {
       setLoadingAssignments(true);   
       try {
-        const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/getassignment/${subjectId}`);
+        const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/getassignment/${subjectId}`,{
+          method: 'GET',  // Can be 'POST', 'PUT', 'DELETE', etc. depending on your needs
+          credentials: 'include'  // This ensures cookies (e.g., JWT in cookies) are included in the request
+      });
         const data = await response.json();
         setAssignments(data.assignment);
       } catch (error) {
@@ -108,6 +111,7 @@ const Class = () => {
       const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/notice/${subjectId}/${noticeId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include' 
       });
       if (response.ok) {
         SetNotice(Notice.filter((notice) => notice._id !== noticeId));
@@ -122,6 +126,7 @@ const Class = () => {
       const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/assignment/${subjectId}/${assignmentId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include' 
       });
       if (response.ok) {
         setAssignments(assignments.filter((assignment) => assignment._id !== assignmentId));
@@ -146,7 +151,8 @@ const Class = () => {
       const res = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/${assignmentId}/${subjectId}/upload`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ assignmentLink: shareableLink }),  
+        body: JSON.stringify({ assignmentLink: shareableLink }),
+        credentials: 'include'   
       });
 
       if (res.ok) {
@@ -161,7 +167,10 @@ const Class = () => {
 
   const handleViewSubmissions = async (assignmentId) => {
     try {
-      const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/${assignmentId}/${subjectId}`);
+      const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/${assignmentId}/${subjectId}`,{
+        method: 'GET',  // Can be 'POST', 'PUT', 'DELETE', etc. depending on your needs
+        credentials: 'include'  // This ensures cookies (e.g., JWT in cookies) are included in the request
+    });
       const data = await response.json();
       console.log(data.returnAss);
       setAssignmentData(data.returnAss);
