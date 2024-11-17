@@ -22,7 +22,7 @@ app.use(cors(
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: ["http://localhost:5000", "https://edu-sync-front.vercel.app"],
+        origin: ["https://edu-sync-front.vercel.app"],
         methods: ["GET", "POST"],  
         credentials: true,
     },
