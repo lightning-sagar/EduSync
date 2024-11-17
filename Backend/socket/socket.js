@@ -4,6 +4,7 @@ import express from "express";
 import Chat from "../Models/chat.js";
 import Subject from "../Models/Subject.js";
 import User from "../Models/User.js"; 
+import cors from "cors";
 
 const app = express();
 
