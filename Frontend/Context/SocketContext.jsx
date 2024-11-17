@@ -19,7 +19,8 @@ export const SocketContextProvider =({children})=>{
        const socket = io("https://edu-sync-backend-seven.vercel.app/",{
            query:{
             userId: user?._id,
-           }
+           },
+           withCredentials: true,
        })   
        setsocket(socket)
 
