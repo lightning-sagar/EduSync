@@ -9,6 +9,7 @@ import path from "path";
 import helpRoute from './Routes/HelpRoute.js';
 import ChatRoute from './Routes/ChatRoute.js';
 import {app,server } from "./socket/socket.js"
+import cors from 'cors';
 
 dotenv.config();
 cloudinary.config({
