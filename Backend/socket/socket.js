@@ -7,7 +7,7 @@ import User from "../Models/User.js";
 
 const app = express();
 app.use(cors({
-    origin: "http://localhost:3000", // Allow requests from your frontend
+    origin: "https://edu-sync-front.vercel.app", // Allow requests from your frontend
     methods: ["GET", "POST"],       // Allowed HTTP methods
     credentials: true,              // Include credentials (cookies, authorization headers, etc.)
 }));
