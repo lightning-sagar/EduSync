@@ -18,7 +18,11 @@ cloudinary.config({
     timeout: 6000000
 });
 
-
+app.use(cors({
+    origin: "https://edu-sync-front.vercel.app", 
+    methods: ["GET", "POST"],       
+    credentials: true,             
+}));
 
 
 connectDB();
