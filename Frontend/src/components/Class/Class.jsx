@@ -71,7 +71,10 @@ const Class = () => {
     const getNotice = async () => {
       setLoadingNotices(true); 
       try {
-        const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/subject/${subjectId}`);
+        const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/subject/${subjectId}`, {
+          method: 'GET',  // Can be 'POST', 'PUT', 'DELETE', etc. depending on your needs
+          credentials: 'include'  // This ensures cookies (e.g., JWT in cookies) are included in the request
+      });
         const data = await response.json();
         SetNotice(data.notice);
         setTeacher(data.teacher);
