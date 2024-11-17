@@ -14,8 +14,7 @@ console.log(process.env.JWT_Secret)
 app.use(cors(
     {
         origin: ["http://localhost:5000", "https://edu-sync-front.vercel.app","https://edu-sync-backend-seven.vercel.app"],
-        methods: ["GET", "POST", "PUT", "DELETE"],  
-        credentials: true
+        methods: ["GET", "POST", "PUT", "DELETE"]
     }
 ));
 
