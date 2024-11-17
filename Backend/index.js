@@ -18,6 +18,7 @@ cloudinary.config({
     api_secret: process.env.CLOUD_API_SECRET,
     timeout: 6000000
 });
+console.log(process.env.JWT_Secret)
 
 connectDB();
 const _dirname = path.resolve();
