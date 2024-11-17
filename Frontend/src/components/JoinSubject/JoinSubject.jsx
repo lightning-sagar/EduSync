@@ -8,7 +8,7 @@ const JoinSubject = () => {
       const joinSubject = async () => {
         try {
   
-          const response = await fetch(`/api/s/join/${subjectId}`, {
+          const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/join/${subjectId}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

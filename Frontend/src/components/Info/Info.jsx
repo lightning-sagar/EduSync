@@ -52,7 +52,7 @@ const Info = () => {
         image: imgUrl,
       };
   
-      const res = await fetch(`/api/s/updateUserDetails/${newDetails.stuId}`, {
+      const res = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/updateUserDetails/${newDetails.stuId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -87,7 +87,7 @@ const Info = () => {
   useEffect(() => {
     const getSubjectStudent = async () => {
       try {
-        const res = await fetch(`/api/s/getpartsubject/${subjectId}`, {
+        const res = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/getpartsubject/${subjectId}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',

@@ -50,7 +50,7 @@ const Create = ({ subjectId, handleClose }) => {
       }
       console.log(requestBody);
 
-      const response = await fetch(`/api/s/subject/${subjectId}`, {
+      const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/subject/${subjectId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

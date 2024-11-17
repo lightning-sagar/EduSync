@@ -37,7 +37,7 @@ function Stream() {
     const getTeacher = async () => {
       try {
         console.log(sId);
-        const res = await fetch(`/api/s/Teacher/${sId}/Teach`);
+        const res = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/Teacher/${sId}/Teach`);
         const data = await res.json();
         console.log(data);
         setSubject(data.subject);
@@ -51,7 +51,7 @@ function Stream() {
   useEffect(() => {
     const getToken = async () => {
       try {
-        const res = await fetch('/api/c/stream/token', {
+        const res = await fetch('https://edu-sync-backend-seven.vercel.app/api/c/stream/token', {
           credentials: 'include',
         });
         const data = await res.json();

@@ -39,7 +39,7 @@ const Chat = () => {
     const fetchMessages = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/c/${subjectId}/messages`, {
+        const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/c/${subjectId}/messages`, {
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',

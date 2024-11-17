@@ -71,7 +71,7 @@ const Class = () => {
     const getNotice = async () => {
       setLoadingNotices(true); 
       try {
-        const response = await fetch(`/api/s/subject/${subjectId}`);
+        const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/subject/${subjectId}`);
         const data = await response.json();
         SetNotice(data.notice);
         setTeacher(data.teacher);
@@ -88,7 +88,7 @@ const Class = () => {
     const getAssignments = async () => {
       setLoadingAssignments(true);   
       try {
-        const response = await fetch(`/api/s/getassignment/${subjectId}`);
+        const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/getassignment/${subjectId}`);
         const data = await response.json();
         setAssignments(data.assignment);
       } catch (error) {
@@ -102,7 +102,7 @@ const Class = () => {
 
   const handleDeleteNotice = async (noticeId) => {
     try {
-      const response = await fetch(`/api/s/notice/${subjectId}/${noticeId}`, {
+      const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/notice/${subjectId}/${noticeId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -116,7 +116,7 @@ const Class = () => {
 
   const handleDeleteAssignment = async (assignmentId) => {
     try {
-      const response = await fetch(`/api/s/assignment/${subjectId}/${assignmentId}`, {
+      const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/assignment/${subjectId}/${assignmentId}`, {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
       });
@@ -140,7 +140,7 @@ const Class = () => {
   const handleLinkUpload = async (assignmentId) => {
     try {
       console.log(shareableLink,"shareableLink")
-      const res = await fetch(`/api/s/${assignmentId}/${subjectId}/upload`, {
+      const res = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/${assignmentId}/${subjectId}/upload`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ assignmentLink: shareableLink }),  
@@ -158,7 +158,7 @@ const Class = () => {
 
   const handleViewSubmissions = async (assignmentId) => {
     try {
-      const response = await fetch(`/api/s/${assignmentId}/${subjectId}`);
+      const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/${assignmentId}/${subjectId}`);
       const data = await response.json();
       console.log(data.returnAss);
       setAssignmentData(data.returnAss);

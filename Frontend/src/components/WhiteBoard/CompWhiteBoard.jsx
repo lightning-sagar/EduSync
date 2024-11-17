@@ -13,7 +13,7 @@ const CompWhiteBoard = () => {
   useEffect(() => {
     const fetchWhiteboardData = async () => {
       try {
-        const response = await axios.get(`/api/s/${subjectId}/whiteboard`);
+        const response = await axios.get(`https://edu-sync-backend-seven.vercel.app/api/s/${subjectId}/whiteboard`);
         const url = response.data.whiteboardUrl;
         console.log("Whiteboard URL:", url);   
         setWhiteboardUrl(url);

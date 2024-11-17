@@ -26,7 +26,7 @@ const Class = ({ onNextClassTime }) => {
         const getSubjects = async () => {
             if (!user) return;
             try {
-                const response = await fetch(`/api/s/${user._id}`, {
+                const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/${user._id}`, {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -74,7 +74,7 @@ const Class = ({ onNextClassTime }) => {
                 description: newDescription,
             };
 
-            const response = await fetch('/api/s/subject', {
+            const response = await fetch('https://edu-sync-backend-seven.vercel.app/api/s/subject', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const Class = ({ onNextClassTime }) => {
 
     const deleteClass = async (id) => {
         try {
-            const res = await fetch(`/api/s/${id}`, {
+            const res = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
