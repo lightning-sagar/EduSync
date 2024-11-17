@@ -20,7 +20,7 @@ const Chat = () => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    const socketInstance = io("https://edu-sync-backend-hecj1wnyj-lightning-sagars-projects.vercel.app/", {
+    const socketInstance = io("https://edu-sync-backend-seven.vercel.app/", {
       query: { userId, subjectId },
     });
     setSocket(socketInstance);
