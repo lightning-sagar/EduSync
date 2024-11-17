@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       "/api": {
-        target: 'https://edu-sync-backend-seven.vercel.app',
+        target: 'https://edu-sync-backend-seven.vercel.app/',
         changeOrigin: true,
         secure: false,
       },
