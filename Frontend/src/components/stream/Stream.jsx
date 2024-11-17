@@ -55,6 +55,7 @@ function Stream() {
     const getToken = async () => {
       try {
         const res = await fetch('https://edu-sync-backend-seven.vercel.app/api/c/stream/token', {
+          method: 'GET',
           credentials: 'include',
         });
         const data = await res.json();
