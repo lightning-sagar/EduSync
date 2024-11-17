@@ -22,6 +22,7 @@ const Chat = () => {
   useEffect(() => {
     const socketInstance = io("https://edu-sync-backend-seven.vercel.app/", {
       query: { userId, subjectId },
+      withCredentials: true,
     });
     setSocket(socketInstance);
 
