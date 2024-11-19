@@ -9,6 +9,7 @@ import subjectAtom from '../../atom/SubjectAtom.js';
 import { useRecoilValue, useRecoilState } from 'recoil';
 import upload_area from '../../assets/upload_area.png';
 import Loader from '../Loader/Loader.jsx';
+import uselogout from '../../hooks/logout.jsx';
 
 const Class = ({ onNextClassTime }) => {
     const [expanded, setExpanded] = useState({});
@@ -17,7 +18,6 @@ const Class = ({ onNextClassTime }) => {
     const [newSubject, setNewSubject] = useState('');
     const [newDescription, setNewDescription] = useState('');
     const navigate = useNavigate();
-
     const { handleImageChange, imgUrl, setImgUrl } = usePreviewImg();
     const user = useRecoilValue(userAtom);
     const [subject, setSubject] = useRecoilState(subjectAtom);
@@ -26,7 +26,7 @@ const Class = ({ onNextClassTime }) => {
         const getSubjects = async () => {
             if (!user) return;
             try {
-                const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/${user._id}`, {
+                const response = await fetch(`/api/s/${user._id}`, {
                     method: 'GET',
                     credentials: 'include',
                 });
@@ -74,7 +74,7 @@ const Class = ({ onNextClassTime }) => {
                 description: newDescription,
             };
 
-            const response = await fetch('https://edu-sync-backend-seven.vercel.app/api/s/subject', {
+            const response = await fetch('/api/s/subject', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const Class = ({ onNextClassTime }) => {
 
     const deleteClass = async (id) => {
         try {
-            const res = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/${id}`, {
+            const res = await fetch(`/api/s/${id}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -192,7 +192,6 @@ const Class = ({ onNextClassTime }) => {
                 {showDropdown && (
                     <div className="dropdown-menu">
                         <button onClick={() => navigate('/dashboard')}>Dashboard</button>
-                        <button onClick={logout}>Logout</button>
                     </div>
                 )}
 

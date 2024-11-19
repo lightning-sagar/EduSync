@@ -26,7 +26,7 @@ const Chatbot = () => {
       setIsLoading(true);
   
       try {
-        const response = await fetch('https://edu-sync-backend-seven.vercel.app/api/generate/ai', {
+        const response = await fetch('/api/generate/ai', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',

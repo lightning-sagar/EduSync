@@ -20,7 +20,7 @@ const Chat = () => {
   const messagesEndRef = useRef(null);
 
   useEffect(() => {
-    const socketInstance = io("https://edu-sync-backend-seven.vercel.app", {
+    const socketInstance = io("http://localhost:5000", {
       query: { userId, subjectId },
       withCredentials: true,
     });
@@ -39,7 +39,7 @@ const Chat = () => {
     const fetchMessages = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/c/${subjectId}/messages`, {
+        const response = await fetch(`/api/c/${subjectId}/messages`, {
           credentials: 'include',
           headers: {
             'Content-Type': 'application/json',

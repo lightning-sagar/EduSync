@@ -54,7 +54,7 @@ const Navbar = ({ setShowLogin }) => {
                 image: imgUrl,
             };
 
-            const res = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/updateUserDetails/${userData._id}`, {
+            const res = await fetch(`/api/s/updateUserDetails/${userData._id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

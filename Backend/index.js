@@ -12,7 +12,7 @@ import {app,server } from "./socket/socket.js"
 import cors from 'cors';
 
 app.use(cors({
-    origin: ["http://localhost:5000", "https://edu-sync-front.vercel.app"],
+    origin: ["http://localhost:5000", "http://localhost:3000"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true
 }));

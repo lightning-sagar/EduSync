@@ -5,7 +5,7 @@ function uselogout() {
    const [user,setuser] = useState(userAtom);
    const logout = async() => {
     try {
-        const res = await fetch('https://edu-sync-backend-seven.vercel.app/api/user/logout', {
+        const res = await fetch('/api/user/logout', {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json'

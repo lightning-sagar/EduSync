@@ -4,25 +4,16 @@ import express from "express";
 import Chat from "../Models/chat.js";
 import Subject from "../Models/Subject.js";
 import User from "../Models/User.js"; 
-import cors from "cors";
 import dotenv from 'dotenv';
 
 const app = express();
 dotenv.config();
-console.log(process.env.JWT_Secret)
-
-app.use(cors(
-    {
-        origin: ["https://edu-sync-front.vercel.app"],
-        methods: ["GET", "POST", "PUT", "DELETE"],
-        credentials: true,
-    }
-));
+ 
 
 const server = http.createServer(app);
 const io = new Server(server, {
     cors: {
-        origin: ["https://edu-sync-front.vercel.app"],
+        origin: ["http://localhost:3000"],
         methods: ["GET", "POST"],  
         credentials: true,
     },

@@ -18,7 +18,7 @@ const Sidebar = () => {
     const getSubject = async () => {
       setLoadingSubjects(true);  
       try {
-        const response = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/${user._id}`, {
+        const response = await fetch(`/api/s/${user._id}`, {
           method: 'GET',  // Can be 'POST', 'PUT', 'DELETE', etc. depending on your needs
           credentials: 'include'  // This ensures cookies (e.g., JWT in cookies) are included in the request
       });

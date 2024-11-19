@@ -35,7 +35,7 @@ const handleFormSubmit = async (e) => {
             description: newDescription,
         };
 
-        const response = await fetch('https://edu-sync-backend-seven.vercel.app/api/s/subject', {
+        const response = await fetch('/api/s/subject', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -80,7 +80,7 @@ const getNextClassTime = (subject) => {
 
 const deleteClass = async (id) => {
     try {
-        const res = await fetch(`https://edu-sync-backend-seven.vercel.app/api/s/${id}`, {
+        const res = await fetch(`/api/s/${id}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',

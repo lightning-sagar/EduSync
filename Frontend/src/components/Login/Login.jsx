@@ -23,7 +23,7 @@ const LoginPopUp = ({setShowLogin }) => {
     e.preventDefault();
     try {
       console.log(data)
-      const res = await fetch(`https://edu-sync-backend-seven.vercel.app/api/user/${currentState}`,{
+      const res = await fetch(`/api/user/${currentState}`,{
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
