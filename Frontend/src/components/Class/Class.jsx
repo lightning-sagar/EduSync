@@ -71,10 +71,7 @@ const Class = () => {
     const getNotice = async () => {
       setLoadingNotices(true); 
       try {
-        const response = await fetch(`/api/s/subject/${subjectId}`, {
-          method: 'GET',  // Can be 'POST', 'PUT', 'DELETE', etc. depending on your needs
-          credentials: 'include'  // This ensures cookies (e.g., JWT in cookies) are included in the request
-      });
+        const response = await fetch(`/api/s/subject/${subjectId}`);
         const data = await response.json();
         SetNotice(data.notice);
         setTeacher(data.teacher);
@@ -91,10 +88,7 @@ const Class = () => {
     const getAssignments = async () => {
       setLoadingAssignments(true);   
       try {
-        const response = await fetch(`/api/s/getassignment/${subjectId}`,{
-          method: 'GET',  // Can be 'POST', 'PUT', 'DELETE', etc. depending on your needs
-          credentials: 'include'  // This ensures cookies (e.g., JWT in cookies) are included in the request
-      });
+        const response = await fetch(`/api/s/getassignment/${subjectId}`);
         const data = await response.json();
         setAssignments(data.assignment);
       } catch (error) {
@@ -167,10 +161,7 @@ const Class = () => {
 
   const handleViewSubmissions = async (assignmentId) => {
     try {
-      const response = await fetch(`/api/s/${assignmentId}/${subjectId}`,{
-        method: 'GET',  // Can be 'POST', 'PUT', 'DELETE', etc. depending on your needs
-        credentials: 'include'  // This ensures cookies (e.g., JWT in cookies) are included in the request
-    });
+      const response = await fetch(`/api/s/${assignmentId}/${subjectId}`);
       const data = await response.json();
       console.log(data.returnAss);
       setAssignmentData(data.returnAss);

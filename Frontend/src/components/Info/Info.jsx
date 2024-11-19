@@ -87,13 +87,7 @@ const Info = () => {
   useEffect(() => {
     const getSubjectStudent = async () => {
       try {
-        const res = await fetch(`/api/s/getpartsubject/${subjectId}`, {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          credentials: 'include',
-        });
+        const res = await fetch(`/api/s/getpartsubject/${subjectId}`);
         const data = await res.json();
         setSubtecher(data.teacher || {});
         setSubjectStudent(data.students || []);

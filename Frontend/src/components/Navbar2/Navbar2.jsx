@@ -39,10 +39,7 @@ const Navbar2 = ({ subtecher, userId }) => {
   console.log(subtecher,"subtecher")
   useEffect(() => {
     const fetchSubject = async () => {
-      const response = await fetch(`api/s/subject/${subtecher}`,{
-        method: 'GET',  // Can be 'POST', 'PUT', 'DELETE', etc. depending on your needs
-        credentials: 'include'
-      });
+      const response = await fetch(`api/s/subject/${subtecher}`);
       const data = await response.json();
       setSubject(data);
     };

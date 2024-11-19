@@ -26,10 +26,7 @@ const Class = ({ onNextClassTime }) => {
         const getSubjects = async () => {
             if (!user) return;
             try {
-                const response = await fetch(`/api/s/${user._id}`, {
-                    method: 'GET',
-                    credentials: 'include',
-                });
+                const response = await fetch(`/api/s/${user._id}`);
                 const data = await response.json();
                 setSubject(data);
             } catch (error) {

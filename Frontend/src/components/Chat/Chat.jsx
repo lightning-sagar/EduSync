@@ -39,13 +39,7 @@ const Chat = () => {
     const fetchMessages = async () => {
       try {
         setLoading(true);
-        const response = await fetch(`/api/c/${subjectId}/messages`, {
-          credentials: 'include',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          method: 'GET',
-        });
+        const response = await fetch(`/api/c/${subjectId}/messages`);
 
         if (!response.ok) {
           throw new Error('Failed to fetch messages');

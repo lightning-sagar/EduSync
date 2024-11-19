@@ -37,10 +37,7 @@ function Stream() {
     const getTeacher = async () => {
       try {
         console.log(sId);
-        const res = await fetch(`/api/s/Teacher/${sId}/Teach`, {
-          method: 'GET',  // Can be 'POST', 'PUT', 'DELETE', etc. depending on your needs
-          credentials: 'include'  // This ensures cookies (e.g., JWT in cookies) are included in the request
-      });
+        const res = await fetch(`/api/s/Teacher/${sId}/Teach`);
         const data = await res.json();
         console.log(data);
         setSubject(data.subject);
@@ -54,10 +51,7 @@ function Stream() {
   useEffect(() => {
     const getToken = async () => {
       try {
-        const res = await fetch('/api/c/stream/token', {
-          method: 'GET',
-          credentials: 'include',
-        });
+        const res = await fetch('/api/c/stream/token');
         const data = await res.json();
         setToken(data.token);
       } catch (error) {

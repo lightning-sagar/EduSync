@@ -5,7 +5,7 @@ import {v2 as cloudinary} from "cloudinary";
 import { v4 as uuidv4 } from 'uuid';
 const Addsubject = async (req, res) => {
     try {
-        console.log(req.user._id, "req.user._id",req.body);
+        console.log(req.user._id, "req.user._id");
         const { subjectname, coverImg, description } = req.body;
         const userId = req.user._id;
         const user = await User.findById(userId);
@@ -34,6 +34,7 @@ const Addsubject = async (req, res) => {
         user.class.push({ subject: savedSubject._id });
         await user.save();
 
+        console.log(savedSubject,"savedSubject");
         return res.status(201).json({ message: "Subject added successfully", subject: savedSubject });
 
     } catch (error) {
