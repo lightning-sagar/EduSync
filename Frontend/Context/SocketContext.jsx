@@ -20,7 +20,6 @@ export const SocketContextProvider =({children})=>{
            query:{
             userId: user?._id,
            },
-           withCredentials: true,
        })   
        setsocket(socket)
 
