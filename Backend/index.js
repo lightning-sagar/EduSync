@@ -9,9 +9,11 @@ import path from "path";
 import helpRoute from './Routes/HelpRoute.js';
 import ChatRoute from './Routes/ChatRoute.js';
 import {app,server } from "./socket/socket.js"
+import cors from "cors"
 
  
 
+app.use(cors())
 dotenv.config();
 cloudinary.config({
     cloud_name: process.env.CLOUD_NAME,
